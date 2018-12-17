@@ -2,6 +2,12 @@
 #include "Application.h"
 #include "PhysBody3D.h"
 #include "ModuleCamera3D.h"
+#include "PhysVehicle3d.h"
+#include "ModulePlayer.h"
+
+#define OFFSET_X 20
+#define OFFSET_Y 10
+#define OFFSET_Z 20
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -41,7 +47,7 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	vec3 newPos(0,0,0);
+	/*vec3 newPos(0,0,0);
 	float speed = 3.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
@@ -94,7 +100,17 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		Position = Reference + Z * length(Position);
-	}
+	}*/
+
+	Position.x = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() - OFFSET_X * App->player->vehicle->vehicle->getForwardVector().getX();
+	Position.y = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getY() + OFFSET_Y * App->player->vehicle->vehicle->getUpAxis();
+	Position.z = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() - OFFSET_Z * App->player->vehicle->vehicle->getForwardVector().getZ();
+
+	float x_value = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() + 10 * App->player->vehicle->vehicle->getForwardVector().getX();
+	float z_value = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() + 10 * App->player->vehicle->vehicle->getForwardVector().getZ();
+
+	LookAt(vec3(x_value, 0, z_value));
+
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
