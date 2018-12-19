@@ -20,6 +20,10 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	Cube circuit(10, 10, 10);
+	circuit.SetPos(0, 0, 100);
+	App->physics->AddBody(circuit, 0.0f);
+
 	return ret;
 }
 
