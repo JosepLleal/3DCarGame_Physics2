@@ -21,6 +21,11 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
+	void CreateCircuit(float sizeX, float sizeY, float sizeZ, float posX, float posY, float posZ,
+					   float angle = 0.0f, vec3 rotation = { 0, 0, 0 }, Color color = Red);
+
+	p2List<Cube> circuitList;
+
 public:
 	/*
 	PhysBody3D* pb_snake[MAX_SNAKE];

@@ -20,9 +20,8 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	Cube circuit(10, 10, 10);
-	circuit.SetPos(0, 0, 100);
-	App->physics->AddBody(circuit, 0.0f);
+	CreateCircuit(20, 20, 20, 0, 0, 100, 30, { 0, 20, 0 });
+	
 
 	return ret;
 }
@@ -48,4 +47,17 @@ update_status ModuleSceneIntro::Update(float dt)
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 }
+
+void ModuleSceneIntro::CreateCircuit(float sizeX, float sizeY, float sizeZ, float posX, float posY, float posZ, 
+									 float angle, vec3 rotation, Color color)
+{
+	Cube circuit(sizeX, sizeY, sizeZ);
+	circuit.SetPos(posX, posY, posZ);
+	circuit.SetRotation(angle, rotation);
+	circuit.color = color;
+	App->physics->AddBody(circuit, 0.0f);
+	circuitList.add(circuit);
+
+}
+
 
