@@ -21,10 +21,11 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
-	void CreateCircuit(float sizeX, float sizeY, float sizeZ, float posX, float posY, float posZ,
-					   float angle = 0.0f, vec3 rotation = { 0, 0, 0 }, Color color = Red);
+	void CreateCircuit(float sizeX, float sizeY, float sizeZ, float posX, float posY, float posZ, float angle = 0.0f, vec3 rotation = { 0, 0, 0 }, Color color = Red);
 
-	p2List<Cube> circuitList;
+	void Render_Circuit();
+
+	p2List<Cube*> circuitList;
 
 public:
 	/*

@@ -52,11 +52,11 @@ bool ModulePlayer::Start()
 	car.pilot_offset.Set(0,2.25,-0.5);
 
 	car.mass = 300.0f;
-	car.suspensionStiffness = 50.0f;
+	car.suspensionStiffness = 15.0f;
 	car.suspensionCompression = 0.83f;
-	car.suspensionDamping = 0.7f;
-	car.maxSuspensionTravelCm = 500.0f;
-	car.frictionSlip = 100.0f;
+	car.suspensionDamping = 0.88f;
+	car.maxSuspensionTravelCm = 1000.0f;
+	car.frictionSlip = 50.0f;
 	car.maxSuspensionForce = 6000.0f;
 
 	// Wheel properties ---------------------------------------
