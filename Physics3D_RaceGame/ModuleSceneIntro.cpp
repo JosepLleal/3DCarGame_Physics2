@@ -20,11 +20,19 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	CreateCircuit(60, 3, 2, -10, 1.5, 40, 90, { 0, 1, 0 });
-	CreateCircuit(60, 3, 2, 10, 1.5, 40, 90, { 0, 1, 0 });
+	CreateCircuit(13, 3, 60, 0, 5, 35, 0, { 0, 1, 0 });
+	CreateCircuit(13, 3, 30, -8.7, 5, 71, -45, { 0, 1, 0 });
+	CreateCircuit(13, 3, 45, -37, 5, 79.5, 90, { 0, 1, 0 });
+	CreateCircuit(13, 3, 45, -72, 5, 65, 45, { 0, 1, 0 });
+	CreateCircuit(13, 3, 45, -105, 5, 52.5, 90, { 0, 1, 0 });
+	CreateCircuit(13, 3, 130, -134, 5, 68.5 + 30 + 12.5, 0, { 0, 1, 0 });
+	CreateCircuit(13, 3, 30, -142.75, 5, 97 + 55 + 30, -45, { 0, 1, 0 });
+	CreateCircuit(13, 3, 30, -164, 5, 105.5 + 55 + 30, 90, { 0, 1, 0 });
+	CreateCircuit(13, 3, 45, -190.25, 5, 91.5 + 55 + 30, 45, { 0, 1, 0 });
+	CreateCircuit(13, 3, 45, -204.25, 5, 57.75 + 55 + 30, 0, { 0, 1, 0 });
+	CreateCircuit(13, 3, 45, -190.25, 5, 24 + 55 + 30, -45, { 0, 1, 0 });
+	CreateCircuit(45, 3, 13, -155, 11.5, 97.5, 17.5, { 0, 0, 1 });
 
-	CreateCircuit(30, 3, 2, 6, 1.5, 80, 75, { 0, 1, 0 });
-	CreateCircuit(15, 3, 2, -12, 1.5, 77, 75, { 0, 1, 0 });
 	
 
 	return ret;
