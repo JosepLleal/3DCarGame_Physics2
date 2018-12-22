@@ -52,6 +52,27 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	Render_Circuit();
 
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
+	{
+		if (App->player->enabled)
+		{
+			App->player->CleanUp();
+			App->player->enabled = false;
+
+			App->player2->enabled = true;
+			App->player2->Start();
+		}
+		else if (App->player2->enabled)
+		{
+			App->player2->CleanUp();
+			App->player2->enabled = false;
+
+			App->player->enabled = true;
+			App->player->Start();
+		}
+
+	}
+
 	return UPDATE_CONTINUE;
 }
 

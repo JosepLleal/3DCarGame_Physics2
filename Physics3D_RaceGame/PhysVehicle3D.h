@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Color.h"
 #include "PhysBody3D.h"
 #include "glmath.h"
 
@@ -23,7 +24,7 @@ struct Wheel
 struct VehicleInfo
 {
 	~VehicleInfo();
-	
+
 	vec3 chassis_size;
 	vec3 chassis_offset;
 
@@ -54,6 +55,7 @@ struct VehicleInfo
 	vec3 pilot;
 	vec3 pilot_offset;
 	
+	Color car_color;
 
 	float mass;
 	float suspensionStiffness; // default to 5.88 / 10.0 offroad / 50.0 sports car / 200.0 F1 car
@@ -83,4 +85,6 @@ public:
 
 	VehicleInfo info;
 	btRaycastVehicle* vehicle;
+
+	
 };

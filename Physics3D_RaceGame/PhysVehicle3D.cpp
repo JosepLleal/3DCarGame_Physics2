@@ -1,5 +1,6 @@
 #include "PhysVehicle3D.h"
 #include "Primitive.h"
+#include "Module.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
 // ----------------------------------------------------------------------------
@@ -48,8 +49,9 @@ void PhysVehicle3D::Render()
 	chassis.transform.M[12] += offset.getX();
 	chassis.transform.M[13] += offset.getY();
 	chassis.transform.M[14] += offset.getZ();
+	
+	chassis.color = info.car_color;
 
-	chassis.color = Red;
 	// LEFT CHASSIS ---------------------------------------------------------------------------------------------------------
 	Cube left_chassis(info.left_chassis_size.x, info.left_chassis_size.y, info.left_chassis_size.z);
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&left_chassis.transform);
@@ -60,7 +62,7 @@ void PhysVehicle3D::Render()
 	left_chassis.transform.M[13] += left_chassis_offset.getY();
 	left_chassis.transform.M[14] += left_chassis_offset.getZ();
 
-	left_chassis.color = Red;
+	left_chassis.color = info.car_color;
 	// RIGHT CHASSIS ---------------------------------------------------------------------------------------------------------
 	Cube right_chassis(info.right_chassis_size.x, info.right_chassis_size.y, info.right_chassis_size.z);
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&right_chassis.transform);
@@ -71,7 +73,7 @@ void PhysVehicle3D::Render()
 	right_chassis.transform.M[13] += right_chassis_offset.getY();
 	right_chassis.transform.M[14] += right_chassis_offset.getZ();
 
-	right_chassis.color = Red;
+	right_chassis.color = info.car_color;
 
 	// FRONT CHASSIS -----------------------------------------------------------------------------------------------------------
 
@@ -84,7 +86,7 @@ void PhysVehicle3D::Render()
 	front_chassis.transform.M[13] += front_chassis_offset.getY();
 	front_chassis.transform.M[14] += front_chassis_offset.getZ();
 
-	front_chassis.color = Red;
+	front_chassis.color = info.car_color;
 
 	// FRONT WING ----------------------------------------------------------------------------------------------------------------
 
@@ -97,7 +99,7 @@ void PhysVehicle3D::Render()
 	front_wing.transform.M[13] += front_wing_offset.getY();
 	front_wing.transform.M[14] += front_wing_offset.getZ();
 
-	front_wing.color = Red;
+	front_wing.color = info.car_color;
 
 	// BACK WING --------------------------------------------------------------------------------------------------------------------
 
@@ -110,7 +112,7 @@ void PhysVehicle3D::Render()
 	back_wing.transform.M[13] += back_wing_offset.getY();
 	back_wing.transform.M[14] += back_wing_offset.getZ();
 
-	back_wing.color = Red;
+	back_wing.color = info.car_color;
 
 	// BACK WING SUPPORT-------
 
@@ -123,7 +125,7 @@ void PhysVehicle3D::Render()
 	back_wingsupport.transform.M[13] += back_wingsupport_offset.getY();
 	back_wingsupport.transform.M[14] += back_wingsupport_offset.getZ();
 
-	back_wingsupport.color = Red;
+	back_wingsupport.color = info.car_color;
 
 	// BACK WING RIGHT-------
 
@@ -136,7 +138,7 @@ void PhysVehicle3D::Render()
 	back_wingright.transform.M[13] += back_wingright_offset.getY();
 	back_wingright.transform.M[14] += back_wingright_offset.getZ();
 
-	back_wingright.color = Red;
+	back_wingright.color = info.car_color;
 
 	// BACK WING LEFT-------
 
@@ -149,7 +151,7 @@ void PhysVehicle3D::Render()
 	back_wingleft.transform.M[13] += back_wingleft_offset.getY();
 	back_wingleft.transform.M[14] += back_wingleft_offset.getZ();
 
-	back_wingleft.color = Red;
+	back_wingleft.color = info.car_color;
 
 	// PILOT ---------------------------------------------------------------------------------------------------------------
 	Cube pilot(info.pilot.x, info.pilot.y, info.pilot.z);
