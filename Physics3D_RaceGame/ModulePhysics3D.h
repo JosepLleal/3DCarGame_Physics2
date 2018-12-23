@@ -29,6 +29,7 @@ public:
 
 	PhysBody3D* AddBody(const Sphere& sphere, float mass = 1.0f);
 	PhysBody3D* AddBody(const Cube& cube, float mass = 1.0f);
+	PhysBody3D* AddBody(const Cube& cube, Module* module_listener, bool sensor, float mass);
 	PhysBody3D* AddBody(const Cylinder& cylinder, float mass = 1.0f);
 	PhysVehicle3D* AddVehicle(const VehicleInfo& info);
 
