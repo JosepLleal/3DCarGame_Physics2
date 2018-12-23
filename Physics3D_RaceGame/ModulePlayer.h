@@ -44,17 +44,19 @@ public:
 		0.0f, 0.0f, 1.0f, 0.0f,
 		-134.0f, 10.0f, 101.0f, 0.0f);
 
-	mat4x4 Starting_plus_180 = mat4x4(
-		-1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, -1.0f, 0.0f,
-		0.0f, 10.0f, 10.0f, 0.0f);
-
-	mat4x4 Starting_plus_270_clockwise = mat4x4(
+	mat4x4 CheckPoint_3_mat = mat4x4(
 		0.0f, 0.0f, -1.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 10.0f, 10.0f, 0.0f);
+		-35.0f, 15.5f, 97.5f, 0.0f);
+
+	mat4x4 CheckPoint_4_mat = mat4x4(
+		-1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, -1.0f, 0.0f,
+		73.5f, 15.5f, -30.25f, 0.0f);
+
+	
 
 
 };

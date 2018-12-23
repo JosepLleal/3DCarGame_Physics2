@@ -64,6 +64,13 @@ private:
 	PhysBody3D* sensor2;
 	Cube* c_sensor2;
 
+	PhysBody3D* sensor3;
+	Cube* c_sensor3;
+
+	PhysBody3D* sensor4;
+	Cube* c_sensor4;
+
+	// HINGE ---------------------------
 	PhysBody3D* anchor_physbody;
 	Cube* obstacleAnchor;
 	PhysBody3D* body_physbody;

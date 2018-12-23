@@ -60,16 +60,16 @@ bool ModuleSceneIntro::Start()
 
 	CreateObstacles();
 
-	//TESTING SENSORS ---------------------------
-	Cube* First_Sens = new Cube(13,5,1);
-	First_Sens->SetPos(0, 9, 20);
+	//CHECK POINTS ---------------------------
+	Cube* First_Sens = new Cube(13,10,1);
+	First_Sens->SetPos(0, 10, 20);
 	First_Sens->color = Green;
 
 	c_sensor1 = First_Sens;
 	sensor1 = App->physics->AddBody(*c_sensor1, 0.0f);
 	sensor1->SetAsSensor(true);
 	sensor1->collision_listeners.add(this);
-	//--------------------------------------------
+	//---
 	Cube* Second_Sens = new Cube(13, 5, 1);
 	Second_Sens->SetPos(-134, 10, 111);
 	Second_Sens->color = Green;
@@ -78,6 +78,24 @@ bool ModuleSceneIntro::Start()
 	sensor2 = App->physics->AddBody(*c_sensor2, 0.0f);
 	sensor2->SetAsSensor(true);
 	sensor2->collision_listeners.add(this);
+	//--
+	Cube* Third_Sens = new Cube(1, 5, 16);
+	Third_Sens->SetPos(-35, 15.5, 97.5);
+	Third_Sens->color = Green;
+
+	c_sensor3 = Third_Sens;
+	sensor3 = App->physics->AddBody(*c_sensor3, 0.0f);
+	sensor3->SetAsSensor(true);
+	sensor3->collision_listeners.add(this);
+	//--
+	Cube* Fourth_Sens = new Cube(13, 5, 1);
+	Fourth_Sens->SetPos(73.5, 15.5, -30.25);
+	Fourth_Sens->color = Green;
+
+	c_sensor4 = Fourth_Sens;
+	sensor4 = App->physics->AddBody(*c_sensor4, 0.0f);
+	sensor4->SetAsSensor(true);
+	sensor4->collision_listeners.add(this);
 	//--------------------------------------------
 	
 
@@ -117,6 +135,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		c_sensor1->Render();
 		c_sensor2->Render();
+		c_sensor3->Render();
+		c_sensor4->Render();
 	}
 
 	Render_Circuit();
@@ -173,6 +193,28 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		else
 		{
 			App->player2->actual_checkpoint = CheckPoint::Second_CP;
+		}
+	}
+	else if (body1 == sensor3)
+	{
+		if (App->player->active)
+		{
+			App->player->actual_checkpoint = CheckPoint::Third_CP;
+		}
+		else
+		{
+			App->player2->actual_checkpoint = CheckPoint::Third_CP;
+		}
+	}
+	else if (body1 == sensor4)
+	{
+		if (App->player->active)
+		{
+			App->player->actual_checkpoint = CheckPoint::Fourth_CP;
+		}
+		else
+		{
+			App->player2->actual_checkpoint = CheckPoint::Fourth_CP;
 		}
 	}
 }

@@ -138,11 +138,8 @@ bool ModulePlayer2::Start()
 bool ModulePlayer2::CleanUp()
 {
 	LOG("Unloading player");
-	if (vehicle != nullptr)
-	{
-		vehicle->SetPos(100000, 0, 100000);
-	}
-	
+	if(vehicle!=nullptr)
+		vehicle->SetPos(0, 0, 10);
 	App->physics->vehicles.clear();
 
 	return true;
@@ -191,6 +188,14 @@ update_status ModulePlayer2::Update(float dt)
 		else if (actual_checkpoint == CheckPoint::Second_CP)
 		{
 			vehicle->SetTransform(App->player->CheckPoint_2_mat.M);
+		}
+		else if (actual_checkpoint == CheckPoint::Third_CP)
+		{
+			vehicle->SetTransform(App->player->CheckPoint_3_mat.M);
+		}
+		else if (actual_checkpoint == CheckPoint::Fourth_CP)
+		{
+			vehicle->SetTransform(App->player->CheckPoint_4_mat.M);
 		}
 
 	}
