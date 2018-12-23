@@ -31,6 +31,7 @@ public:
 
 	void CreateCircuit(float sizeX, float sizeY, float sizeZ, float posX, float posY, float posZ, float angle = 0.0f, vec3 rotation = { 0, 0, 0 }, Color color = White);
 	void CreateObstacles();
+	void TimeSet(uint timer);
 	
 	
 	void Render_Circuit();
@@ -38,7 +39,6 @@ public:
 
 	p2List<Cube*> circuitList;
 	p2List<Cube*> obstacleList;
-	/*p2List<PhysBody3D*> obstacleBodyList;*/
 
 
 public:
@@ -54,6 +54,10 @@ public:
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
+
+	Timer chrono;
+	int chrono_player1 = 0;
+	int chrono_player2 = 0;
 
 private:
 

@@ -145,6 +145,14 @@ update_status ModuleSceneIntro::Update(float dt)
 	Render_Obstacles(body_physbody2, obstacleBody2);
 	Render_Obstacles(body_physbody3, obstacleBody3);
 
+
+
+	LOG("Player 1 = %i", chrono_player1);
+	LOG("Player 2 = %i", chrono_player2);
+
+	
+	TimeSet(chrono.Read());
+	
 	
 	return UPDATE_CONTINUE;
 }
@@ -161,6 +169,8 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			}
 			else
 			{
+				chrono_player1 = chrono.Read();
+				chrono.Start();
 				App->player->CleanUp();
 				App->player->enabled = false;
 
@@ -178,6 +188,8 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			}
 			else
 			{
+				chrono_player2 = chrono.Read();
+				chrono.Start();
 				App->player2->CleanUp();
 				App->player2->enabled = false;
 
@@ -289,29 +301,48 @@ void ModuleSceneIntro::CreateObstacles()
 	App->physics->StartHingeMotion(anchor_physbody3, body_physbody3);
 
 }
-/*
-void ModuleSceneIntro::CreateObstacle(float sizeX, float sizeY, float sizeZ, float anchorPosX, float anchorPosY, float anchorPosZ, float bodyPosX, float bodyPosY, float bodyPosZ)
+
+void ModuleSceneIntro::TimeSet(uint timer)
 {
-	PhysBody3D* anchor_physbody = nullptr;
-	Cube* obstacleAnchor = new Cube(sizeX, sizeY, sizeZ);
-	obstacleAnchor->SetPos(anchorPosX, anchorPosY, anchorPosZ);
-	anchor_physbody = App->physics->AddBody(*obstacleAnchor, 0.0f);
+	char title[80];
 
-	PhysBody3D* body_physbody = nullptr;
-	Cube* obstacleBody = new  Cube(sizeX, sizeY, sizeZ);
-	obstacleBody->SetPos(bodyPosX, bodyPosY, bodyPosZ);
-	obstacleList.add(obstacleBody);
-	body_physbody = App->physics->AddBody(*obstacleBody, 10.0f);
-	obstacleBodyList.add(body_physbody);
-
-	btHingeConstraint* hingeAnchorToBody = App->physics->AddConstraintHinge(*anchor_physbody, *body_physbody,
-		vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
-
-	hingeAnchorToBody->enableAngularMotor(true, 5.0f, INFINITE);
-}*/
+	int sec = timer / 1000.0f; //from milisecond to sec
+	int min = sec / 60.0f; //from seconds to minutes 
+	int hour = min / 60.0f; //from minutes to hours
 
 
+	int sec_print = sec;
 
+	if (min > 0)
+		sec_print -= min * 60;
+
+	if (hour >= 10 && min >= 10 && sec_print >= 10) {
+		sprintf_s(title, "%i : %i : %i", hour, min, sec_print);
+	}
+	else if (hour < 10 && min >= 10 && sec_print >= 10) {
+		sprintf_s(title, "0%i : %i : %i", hour, min, sec_print);
+	}
+	else if (hour >= 10 && min < 10 && sec_print >= 10) {
+		sprintf_s(title, "%i : 0%i : %i", hour, min, sec_print);
+	}
+	else if (hour >= 10 && min >= 10 && sec_print < 10) {
+		sprintf_s(title, "%i : %i : 0%i", hour, min, sec_print);
+	}
+	else if (hour >= 10 && min < 10 && sec_print < 10) {
+		sprintf_s(title, "%i : 0%i : 0%i", hour, min, sec_print);
+	}
+	else if (hour < 10 && min >= 10 && sec_print < 10) {
+		sprintf_s(title, "0%i : %i : 0%i", hour, min, sec_print);
+	}
+	else if (hour < 10 && min < 10 && sec_print >= 10) {
+		sprintf_s(title, "0%i : 0%i : %i", hour, min, sec_print);
+	}
+	else {
+		sprintf_s(title, "0%i : 0%i : 0%i", hour, min, sec_print);
+	}
+
+	App->window->SetTitle(title);
+}
 
 void ModuleSceneIntro::Render_Circuit()
 {
