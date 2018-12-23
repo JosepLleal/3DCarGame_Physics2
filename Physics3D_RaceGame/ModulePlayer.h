@@ -31,6 +31,7 @@ public:
 	CheckPoint actual_checkpoint = CheckPoint::First_CP;
 
 	bool active;
+	bool reached_CP4 = false;
 
 	mat4x4 CheckPoint_1_mat = mat4x4(
 		1.0f, 0.0f, 0.0f, 0.0f,

@@ -24,6 +24,8 @@ public:
 
 public:
 
+	bool reached_CP4 = false;
+
 	PhysVehicle3D * vehicle;
 	float turn;
 	float acceleration;

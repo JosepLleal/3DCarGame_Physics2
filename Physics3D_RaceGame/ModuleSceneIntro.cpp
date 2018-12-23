@@ -145,27 +145,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	Render_Obstacles(body_physbody2, obstacleBody2);
 	Render_Obstacles(body_physbody3, obstacleBody3);
 
-	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
-	{
-		if (App->player->enabled)
-		{
-			App->player->CleanUp();
-			App->player->enabled = false;
-
-			App->player2->enabled = true;
-			App->player2->Start();
-		}
-		else if (App->player2->enabled)
-		{
-			App->player2->CleanUp();
-			App->player2->enabled = false;
-
-			App->player->enabled = true;
-			App->player->Start();
-		}
-
-	}
-
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -175,12 +155,36 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{
 		if (App->player->active)
 		{
-			App->player->actual_checkpoint = CheckPoint::First_CP;
+			if (App->player->reached_CP4 == false)
+			{
+				App->player->actual_checkpoint = CheckPoint::First_CP;
+			}
+			else
+			{
+				App->player->CleanUp();
+				App->player->enabled = false;
+
+				App->player2->enabled = true;
+				App->player2->Start();
+			}
+			
 			
 		}
 		else
 		{
-			App->player2->actual_checkpoint = CheckPoint::First_CP;
+			if (App->player2->reached_CP4 == false)
+			{
+				App->player2->actual_checkpoint = CheckPoint::First_CP;
+			}
+			else
+			{
+				App->player2->CleanUp();
+				App->player2->enabled = false;
+
+				App->player->enabled = true;
+				App->player->Start();
+			}
+			
 		}
 		
 	}
@@ -211,10 +215,12 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		if (App->player->active)
 		{
 			App->player->actual_checkpoint = CheckPoint::Fourth_CP;
+			App->player->reached_CP4 = true;
 		}
 		else
 		{
 			App->player2->actual_checkpoint = CheckPoint::Fourth_CP;
+			App->player2->reached_CP4 = true;
 		}
 	}
 }
