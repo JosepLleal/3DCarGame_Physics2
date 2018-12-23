@@ -38,9 +38,9 @@ public:
 	p2List<PhysVehicle3D*> vehicles;
 	p2List<PhysBody3D*> bodies;
 
-private:
-
 	bool debug;
+
+private:
 
 	btDefaultCollisionConfiguration*	collision_conf;
 	btCollisionDispatcher*				dispatcher;

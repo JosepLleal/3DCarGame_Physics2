@@ -184,7 +184,14 @@ update_status ModulePlayer2::Update(float dt)
 	{
 		vehicle->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
 		vehicle->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
-		vehicle->SetTransform(App->player->Starting_mat.M);
+		if (actual_checkpoint == CheckPoint::First_CP)
+		{
+			vehicle->SetTransform(App->player->CheckPoint_1_mat.M);
+		}
+		else if (actual_checkpoint == CheckPoint::Second_CP)
+		{
+			vehicle->SetTransform(App->player->CheckPoint_2_mat.M);
+		}
 
 	}
 

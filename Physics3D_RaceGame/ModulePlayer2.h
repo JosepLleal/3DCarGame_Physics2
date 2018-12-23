@@ -20,6 +20,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	CheckPoint actual_checkpoint = CheckPoint::First_CP;
+
 public:
 
 	PhysVehicle3D * vehicle;

@@ -59,8 +59,8 @@ bool ModuleSceneIntro::Start()
 	CreateCircuit(13, 3, 35, 0, 13, -30, -5.5, { 1, 0, 0 });
 
 	//TESTING SENSORS ---------------------------
-	Cube* First_Sens = new Cube(3,3,3);
-	First_Sens->SetPos(0, 7, 20);
+	Cube* First_Sens = new Cube(13,5,1);
+	First_Sens->SetPos(0, 9, 20);
 	First_Sens->color = Green;
 
 	c_sensor1 = First_Sens;
@@ -68,6 +68,17 @@ bool ModuleSceneIntro::Start()
 	sensor1->SetAsSensor(true);
 	sensor1->collision_listeners.add(this);
 	//--------------------------------------------
+	Cube* Second_Sens = new Cube(13, 5, 1);
+	Second_Sens->SetPos(-134, 10, 111);
+	Second_Sens->color = Green;
+
+	c_sensor2 = Second_Sens;
+	sensor2 = App->physics->AddBody(*c_sensor2, 0.0f);
+	sensor2->SetAsSensor(true);
+	sensor2->collision_listeners.add(this);
+	//--------------------------------------------
+	
+
 	return ret;
 }
 
@@ -90,6 +101,13 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+	if (App->physics->debug)
+	{
+		c_sensor1->Render();
+		c_sensor2->Render();
+	}
+	
+
 
 	Render_Circuit();
 
@@ -119,9 +137,29 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	if (body1 = sensor1)
+	if (body1 == sensor1)
 	{
-		App->player->respawn = true;
+		if (App->player->active)
+		{
+			App->player->actual_checkpoint = CheckPoint::First_CP;
+			
+		}
+		else
+		{
+			App->player2->actual_checkpoint = CheckPoint::First_CP;
+		}
+		
+	}
+	else if (body1 == sensor2)
+	{
+		if (App->player->active)
+		{
+			App->player->actual_checkpoint = CheckPoint::Second_CP;
+		}
+		else
+		{
+			App->player2->actual_checkpoint = CheckPoint::Second_CP;
+		}
 	}
 }
 

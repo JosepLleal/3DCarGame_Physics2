@@ -1,5 +1,6 @@
 #pragma once
 #include "Module.h"
+#include "ModuleSceneIntro.h"
 #include "Globals.h"
 #include "p2Point.h"
 
@@ -27,20 +28,21 @@ public:
 	float acceleration;
 	float brake;
 
-	bool respawn = false;
+	CheckPoint actual_checkpoint = CheckPoint::First_CP;
+
 	bool active;
 
-	mat4x4 Starting_mat = mat4x4(
+	mat4x4 CheckPoint_1_mat = mat4x4(
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, -1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
 		0.0f, 10.0f, 10.0f, 0.0f);
 
-	mat4x4 Starting_plus_90_clockwise = mat4x4(
+	mat4x4 CheckPoint_2_mat = mat4x4(
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, -1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		-1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 10.0f, 10.0f, 0.0f);
+		-134.0f, 10.0f, 111.0f, 0.0f);
 
 	mat4x4 Starting_plus_180 = mat4x4(
 		-1.0f, 0.0f, 0.0f, 0.0f,

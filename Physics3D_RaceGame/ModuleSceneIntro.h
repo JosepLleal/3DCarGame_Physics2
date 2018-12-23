@@ -9,6 +9,14 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 
+enum class CheckPoint
+{
+	First_CP,
+	Second_CP, 
+	Third_CP,
+	Fourth_CP
+};
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -41,6 +49,10 @@ public:
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
 
+	// SENSORS -----------------------
 	PhysBody3D* sensor1;
 	Cube* c_sensor1;
+
+	PhysBody3D* sensor2;
+	Cube* c_sensor2;
 };

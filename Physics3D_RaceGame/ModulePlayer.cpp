@@ -178,14 +178,20 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 2.0f || respawn)
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 1.0f)
 	{
 		
 		vehicle->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
 		vehicle->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
-		vehicle->SetTransform(Starting_mat.M);
-		respawn = false;
-		
+		if (actual_checkpoint == CheckPoint::First_CP)
+		{
+			vehicle->SetTransform(CheckPoint_1_mat.M);
+		}
+		else if (actual_checkpoint == CheckPoint::Second_CP)
+		{
+			vehicle->SetTransform(CheckPoint_2_mat.M);
+		}
+				
 	}
 	
 	vehicle->ApplyEngineForce(acceleration);
