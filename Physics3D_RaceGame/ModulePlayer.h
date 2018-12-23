@@ -28,4 +28,30 @@ public:
 	float brake;
 
 	bool active;
+
+	mat4x4 Starting_mat = mat4x4(
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, -1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 10.0f, 10.0f, 0.0f);
+
+	mat4x4 Starting_plus_90_clockwise = mat4x4(
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		-1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 10.0f, 10.0f, 0.0f);
+
+	mat4x4 Starting_plus_180 = mat4x4(
+		-1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, -1.0f, 0.0f,
+		0.0f, 10.0f, 10.0f, 0.0f);
+
+	mat4x4 Starting_plus_270_clockwise = mat4x4(
+		0.0f, 0.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 10.0f, 10.0f, 0.0f);
+
+
 };
