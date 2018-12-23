@@ -29,11 +29,17 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
-	void CreateCircuit(float sizeX, float sizeY, float sizeZ, float posX, float posY, float posZ, float angle = 0.0f, vec3 rotation = { 0, 0, 0 }, Color color = Red);
-
+	void CreateCircuit(float sizeX, float sizeY, float sizeZ, float posX, float posY, float posZ, float angle = 0.0f, vec3 rotation = { 0, 0, 0 }, Color color = White);
+	void CreateObstacles();
+	
+	
 	void Render_Circuit();
+	void Render_Obstacles(PhysBody3D* body, Cube* cube);
 
 	p2List<Cube*> circuitList;
+	p2List<Cube*> obstacleList;
+	/*p2List<PhysBody3D*> obstacleBodyList;*/
+
 
 public:
 	
@@ -49,10 +55,33 @@ public:
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
 
+private:
+
 	// SENSORS -----------------------
 	PhysBody3D* sensor1;
 	Cube* c_sensor1;
 
 	PhysBody3D* sensor2;
 	Cube* c_sensor2;
+
+	PhysBody3D* anchor_physbody;
+	Cube* obstacleAnchor;
+	PhysBody3D* body_physbody;
+	Cube* obstacleBody;
+
+	PhysBody3D* anchor_physbody1;
+	Cube* obstacleAnchor1;
+	PhysBody3D* body_physbody1;
+	Cube* obstacleBody1;
+
+	PhysBody3D* anchor_physbody2;
+	Cube* obstacleAnchor2;
+	PhysBody3D* body_physbody2;
+	Cube* obstacleBody2;
+
+	PhysBody3D* anchor_physbody3;
+	Cube* obstacleAnchor3;
+	PhysBody3D* body_physbody3;
+	Cube* obstacleBody3;
+
 };

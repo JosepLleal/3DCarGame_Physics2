@@ -58,6 +58,8 @@ bool ModuleSceneIntro::Start()
 	//Last ramp
 	CreateCircuit(13, 3, 35, 0, 13, -30, -5.5, { 1, 0, 0 });
 
+	CreateObstacles();
+
 	//TESTING SENSORS ---------------------------
 	Cube* First_Sens = new Cube(13,5,1);
 	First_Sens->SetPos(0, 9, 20);
@@ -86,12 +88,22 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+	//Track clean up
 	for (p2List_item<Cube*>* circuit_item = circuitList.getFirst(); circuit_item; circuit_item = circuit_item->next)
 	{
 		delete circuit_item->data;
 		circuit_item->data = nullptr;
 	}
 	circuitList.clear();
+	//Obstacle clean up
+	for (p2List_item<Cube*>* obstacle_item = obstacleList.getFirst(); obstacle_item; obstacle_item = obstacle_item->next)
+	{
+		delete obstacle_item->data;
+		obstacle_item->data = nullptr;
+	}
+	obstacleList.clear();
+	
+
 	return true;
 }
 
@@ -106,10 +118,12 @@ update_status ModuleSceneIntro::Update(float dt)
 		c_sensor1->Render();
 		c_sensor2->Render();
 	}
-	
-
 
 	Render_Circuit();
+	Render_Obstacles(body_physbody, obstacleBody);
+	Render_Obstacles(body_physbody1, obstacleBody1);
+	Render_Obstacles(body_physbody2, obstacleBody2);
+	Render_Obstacles(body_physbody3, obstacleBody3);
 
 	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
 	{
@@ -173,6 +187,91 @@ void ModuleSceneIntro::CreateCircuit(float sizeX, float sizeY, float sizeZ, floa
 	circuitList.add(circuit);
 
 }
+void ModuleSceneIntro::CreateObstacles()
+{
+	//first obstacle
+	obstacleAnchor = new Cube(1, 1, 1);
+	obstacleAnchor->SetPos(-134, 7, 131);
+	anchor_physbody = App->physics->AddBody(*obstacleAnchor, 0.0f);
+
+	obstacleBody = new  Cube(1, 1, 1);
+	obstacleBody->SetPos(-134, 7, 135);
+	obstacleBody->color = Red;
+	obstacleList.add(obstacleBody);
+	body_physbody = App->physics->AddBody(*obstacleBody, 10.0f);
+
+	btHingeConstraint* hingeAnchorToBody = App->physics->AddConstraintHinge(*anchor_physbody, *body_physbody, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
+
+	hingeAnchorToBody->enableAngularMotor(true, 5.0f, INFINITE);
+	//second obstacle
+	obstacleAnchor1 = new Cube(1, 1, 1);
+	obstacleAnchor1->SetPos(-204.25, 7, 142.75);
+	anchor_physbody1 = App->physics->AddBody(*obstacleAnchor1, 0.0f);
+
+	obstacleBody1 = new  Cube(1, 1, 1);
+	obstacleBody1->SetPos(-204.25, 7, 146.75);
+	obstacleBody1->color = Red;
+	obstacleList.add(obstacleBody1);
+	body_physbody1 = App->physics->AddBody(*obstacleBody1, 10.0f);
+
+	btHingeConstraint* hingeAnchorToBody1 = App->physics->AddConstraintHinge(*anchor_physbody1, *body_physbody1, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
+
+	hingeAnchorToBody1->enableAngularMotor(true, 5.0f, INFINITE);
+
+	//third obstacle
+	obstacleAnchor2 = new Cube(1, 1, 1);
+	obstacleAnchor2->SetPos(94.5, 13.5, 98.5);
+	anchor_physbody2 = App->physics->AddBody(*obstacleAnchor2, 0.0f);
+
+	obstacleBody2 = new  Cube(1, 1, 1);
+	obstacleBody2->SetPos(94.5, 13.5, 102.5);
+	obstacleBody2->color = Red;
+	obstacleList.add(obstacleBody2);
+	body_physbody2 = App->physics->AddBody(*obstacleBody2, 10.0f);
+
+	btHingeConstraint* hingeAnchorToBody2 = App->physics->AddConstraintHinge(*anchor_physbody2, *body_physbody2, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
+
+	hingeAnchorToBody2->enableAngularMotor(true, 5.0f, INFINITE);
+
+	//fourth obstacle
+	obstacleAnchor3 = new Cube(1, 1, 1);
+	obstacleAnchor3->SetPos(84, 13.5, 34.1);
+	anchor_physbody3 = App->physics->AddBody(*obstacleAnchor3, 0.0f);
+
+	obstacleBody3 = new  Cube(1, 1, 1);
+	obstacleBody3->SetPos(84, 13.5, 38.1);
+	obstacleBody3->color = Red;
+	obstacleList.add(obstacleBody3);
+	body_physbody3 = App->physics->AddBody(*obstacleBody3, 10.0f);
+
+	btHingeConstraint* hingeAnchorToBody3 = App->physics->AddConstraintHinge(*anchor_physbody3, *body_physbody3, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
+
+	hingeAnchorToBody3->enableAngularMotor(true, 5.0f, INFINITE);
+
+}
+/*
+void ModuleSceneIntro::CreateObstacle(float sizeX, float sizeY, float sizeZ, float anchorPosX, float anchorPosY, float anchorPosZ, float bodyPosX, float bodyPosY, float bodyPosZ)
+{
+	PhysBody3D* anchor_physbody = nullptr;
+	Cube* obstacleAnchor = new Cube(sizeX, sizeY, sizeZ);
+	obstacleAnchor->SetPos(anchorPosX, anchorPosY, anchorPosZ);
+	anchor_physbody = App->physics->AddBody(*obstacleAnchor, 0.0f);
+
+	PhysBody3D* body_physbody = nullptr;
+	Cube* obstacleBody = new  Cube(sizeX, sizeY, sizeZ);
+	obstacleBody->SetPos(bodyPosX, bodyPosY, bodyPosZ);
+	obstacleList.add(obstacleBody);
+	body_physbody = App->physics->AddBody(*obstacleBody, 10.0f);
+	obstacleBodyList.add(body_physbody);
+
+	btHingeConstraint* hingeAnchorToBody = App->physics->AddConstraintHinge(*anchor_physbody, *body_physbody,
+		vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
+
+	hingeAnchorToBody->enableAngularMotor(true, 5.0f, INFINITE);
+}*/
+
+
+
 
 void ModuleSceneIntro::Render_Circuit()
 {
@@ -180,6 +279,16 @@ void ModuleSceneIntro::Render_Circuit()
 	{
 		circuit_item->data->Render();
 	}
+}
+
+void ModuleSceneIntro::Render_Obstacles(PhysBody3D * body, Cube * cube)
+{
+	mat4x4 matrix;
+	
+	body->GetTransform(matrix.M);
+	cube->transform = matrix;
+	cube->Render();
+	
 }
 
 

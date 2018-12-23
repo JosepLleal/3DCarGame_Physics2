@@ -142,6 +142,7 @@ bool ModulePlayer::CleanUp()
 	LOG("Unloading player");
 	vehicle->SetPos(100000, 0, 100000);
 	App->physics->vehicles.clear();
+	
 	active = false;
 	return true;
 }
@@ -178,7 +179,7 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 1.0f)
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 3.0f)
 	{
 		
 		vehicle->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
