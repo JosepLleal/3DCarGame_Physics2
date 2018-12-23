@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ModulePlayer.h"
 #include "Primitive.h"
 #include "PhysBody3D.h"
 
@@ -57,8 +58,16 @@ bool ModuleSceneIntro::Start()
 	//Last ramp
 	CreateCircuit(13, 3, 35, 0, 13, -30, -5.5, { 1, 0, 0 });
 
-	
+	//TESTING SENSORS ---------------------------
+	Cube* First_Sens = new Cube(3,3,3);
+	First_Sens->SetPos(0, 7, 20);
+	First_Sens->color = Green;
 
+	c_sensor1 = First_Sens;
+	sensor1 = App->physics->AddBody(*c_sensor1, 0.0f);
+	sensor1->SetAsSensor(true);
+	sensor1->collision_listeners.add(this);
+	//--------------------------------------------
 	return ret;
 }
 
@@ -110,6 +119,10 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	if (body1 = sensor1)
+	{
+		App->player->respawn = true;
+	}
 }
 
 void ModuleSceneIntro::CreateCircuit(float sizeX, float sizeY, float sizeZ, float posX, float posY, float posZ, float angle, vec3 rotation, Color color)

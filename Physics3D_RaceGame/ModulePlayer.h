@@ -27,6 +27,7 @@ public:
 	float acceleration;
 	float brake;
 
+	bool respawn = false;
 	bool active;
 
 	mat4x4 Starting_mat = mat4x4(
