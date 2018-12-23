@@ -182,8 +182,8 @@ update_status ModulePlayer2::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 2.0f)
 	{
-
 		vehicle->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+		vehicle->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
 		vehicle->SetTransform(App->player->Starting_mat.M);
 
 	}

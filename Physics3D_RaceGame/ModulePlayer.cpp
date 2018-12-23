@@ -182,6 +182,7 @@ update_status ModulePlayer::Update(float dt)
 	{
 		
 		vehicle->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+		vehicle->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
 		vehicle->SetTransform(Starting_mat.M);
 		
 	}
