@@ -238,35 +238,6 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 	return pbody;
 }
 
-PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, Module* module_listener, bool sensor, float mass)
-{
-	btCollisionShape* colShape = new btBoxShape(btVector3(cube.size.x*0.5f, cube.size.y*0.5f, cube.size.z*0.5f));
-	shapes.add(colShape);
-
-	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&cube.transform);
-
-	btVector3 localInertia(0, 0, 0);
-	if (mass != 0.f)
-		colShape->calculateLocalInertia(mass, localInertia);
-
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	motions.add(myMotionState);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-
-	btRigidBody* body = new btRigidBody(rbInfo);
-	PhysBody3D* pbody = new PhysBody3D(body);
-
-	pbody->SetAsSensor(sensor);
-
-	pbody->collision_listeners.add(module_listener);
-	body->setUserPointer(pbody);
-	world->addRigidBody(body);
-	bodies.add(pbody);
-
-	return pbody;
-}
-
 // ---------------------------------------------------------
 PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
 {
