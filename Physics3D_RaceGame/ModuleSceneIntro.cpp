@@ -199,10 +199,8 @@ void ModuleSceneIntro::CreateObstacles()
 	obstacleBody->color = Red;
 	obstacleList.add(obstacleBody);
 	body_physbody = App->physics->AddBody(*obstacleBody, 10.0f);
-
-	btHingeConstraint* hingeAnchorToBody = App->physics->AddConstraintHinge(*anchor_physbody, *body_physbody, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
-
-	hingeAnchorToBody->enableAngularMotor(true, 5.0f, INFINITE);
+	App->physics->StartHingeMotion(anchor_physbody, body_physbody);
+	
 	//second obstacle
 	obstacleAnchor1 = new Cube(1, 1, 1);
 	obstacleAnchor1->SetPos(-204.25, 7, 142.75);
@@ -214,9 +212,7 @@ void ModuleSceneIntro::CreateObstacles()
 	obstacleList.add(obstacleBody1);
 	body_physbody1 = App->physics->AddBody(*obstacleBody1, 10.0f);
 
-	btHingeConstraint* hingeAnchorToBody1 = App->physics->AddConstraintHinge(*anchor_physbody1, *body_physbody1, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
-
-	hingeAnchorToBody1->enableAngularMotor(true, 5.0f, INFINITE);
+	App->physics->StartHingeMotion(anchor_physbody1, body_physbody1);
 
 	//third obstacle
 	obstacleAnchor2 = new Cube(1, 1, 1);
@@ -229,9 +225,7 @@ void ModuleSceneIntro::CreateObstacles()
 	obstacleList.add(obstacleBody2);
 	body_physbody2 = App->physics->AddBody(*obstacleBody2, 10.0f);
 
-	btHingeConstraint* hingeAnchorToBody2 = App->physics->AddConstraintHinge(*anchor_physbody2, *body_physbody2, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
-
-	hingeAnchorToBody2->enableAngularMotor(true, 5.0f, INFINITE);
+	App->physics->StartHingeMotion(anchor_physbody2, body_physbody2);
 
 	//fourth obstacle
 	obstacleAnchor3 = new Cube(1, 1, 1);
@@ -244,9 +238,7 @@ void ModuleSceneIntro::CreateObstacles()
 	obstacleList.add(obstacleBody3);
 	body_physbody3 = App->physics->AddBody(*obstacleBody3, 10.0f);
 
-	btHingeConstraint* hingeAnchorToBody3 = App->physics->AddConstraintHinge(*anchor_physbody3, *body_physbody3, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
-
-	hingeAnchorToBody3->enableAngularMotor(true, 5.0f, INFINITE);
+	App->physics->StartHingeMotion(anchor_physbody3, body_physbody3);
 
 }
 /*

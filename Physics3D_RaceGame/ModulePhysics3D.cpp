@@ -357,6 +357,12 @@ btHingeConstraint* ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBo
 	return hinge;
 }
 
+void ModulePhysics3D::StartHingeMotion(PhysBody3D * anchor, PhysBody3D * body)
+{
+	btHingeConstraint* hingeAnchorToBody = App->physics->AddConstraintHinge(*anchor, *body, vec3(0, 0, 0), vec3(0, 0, -3), vec3(0, 1, 0), vec3(0, 1, 0), false);
+	hingeAnchorToBody->enableAngularMotor(true, 5.0f, INFINITE);
+}
+
 // =============================================
 void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
 {

@@ -34,6 +34,7 @@ public:
 
 	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
 	btHingeConstraint* AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);
+	void StartHingeMotion(PhysBody3D* anchor, PhysBody3D* body);
 
 	p2List<PhysVehicle3D*> vehicles;
 	p2List<PhysBody3D*> bodies;
