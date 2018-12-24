@@ -18,6 +18,17 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
+	App->audio->SetMusicVolume();
+	App->audio->SetSfxVolume();
+
+	//FX
+	music = App->audio->PlayMusic("audio/map_music.ogg");
+	
+	car_accelerate = App->audio->LoadFx("audio/car_accelerate.wav");
+	car_brake = App->audio->LoadFx("audio/car_brakes.wav");
+	car_fall = App->audio->LoadFx("audio/car_fall.wav");
+	win = App->audio->LoadFx("audio/win.wav");
+
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
@@ -157,11 +168,17 @@ update_status ModuleSceneIntro::Update(float dt)
 	
 	if (ended)
 	{
-		if(winner == 1)
+		if (winner == 1)
+		{
+			/*App->audio->PlayFx(App->scene_intro->win);*/
 			TimeSet(chrono_player1);
-
+		}
 		if (winner == 2)
+		{
+			/*App->audio->PlayFx(App->scene_intro->win);*/
 			TimeSet(chrono_player2);
+		}
+		
 	}
 
 	

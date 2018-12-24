@@ -170,6 +170,7 @@ update_status ModulePlayer2::Update(float dt)
 	{
 		acceleration = MAX_ACCELERATION;
 		App->scene_intro->startTimer = true;
+		App->audio->PlayFx(App->scene_intro->car_accelerate);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->scene_intro->ended == false)
@@ -192,10 +193,13 @@ update_status ModulePlayer2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && App->scene_intro->ended == false)
 	{
 		brake = BRAKE_POWER;
+		App->audio->PlayFx(App->scene_intro->car_brake);
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 3.0f) && App->scene_intro->ended == false)
 	{
+		App->audio->PlayFx(App->scene_intro->car_fall);
+
 		vehicle->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
 		vehicle->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
 		if (actual_checkpoint == CheckPoint::First_CP)

@@ -67,6 +67,14 @@ public:
 	vec3 storedP1time;
 	vec3 storedP2time;
 
+	//sfx and music
+	uint music;
+
+	uint car_accelerate;
+	uint car_brake;
+	uint car_fall;
+	uint win;
+
 private:
 
 	// SENSORS -----------------------
@@ -102,5 +110,6 @@ private:
 	Cube* obstacleAnchor3;
 	PhysBody3D* body_physbody3;
 	Cube* obstacleBody3;
+
 
 };
