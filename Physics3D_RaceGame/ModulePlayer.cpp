@@ -145,6 +145,7 @@ bool ModulePlayer::Start()
 		if (App->scene_intro->winner == 1)
 		{
 			vehicle->SetPos(-110, 7.5, -80);
+		
 		}
 		else if (App->scene_intro->winner == 2)
 		{
@@ -173,33 +174,34 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->scene_intro->ended == false)
 	{
 		acceleration = MAX_ACCELERATION;
 		App->scene_intro->startTimer = true;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->scene_intro->ended == false)
 	{
 		if(turn < TURN_DEGREES)
 			turn +=  TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->scene_intro->ended == false)
 	{
 		if(turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->scene_intro->ended == false)
 	{
 		acceleration = MAX_DEACCELERATION;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && App->scene_intro->ended == false)
 	{
 		brake = BRAKE_POWER;
 	}
+
 
 	if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 3.0f)&&App->scene_intro->ended == false)
 	{

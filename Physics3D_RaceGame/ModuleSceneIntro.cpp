@@ -152,8 +152,18 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	LOG("Player 1 = %i", chrono_player1);
 	LOG("Player 2 = %i", chrono_player2);
-
+	
 	TimeSet(chrono.Read());
+	
+	if (ended)
+	{
+		if(winner == 1)
+			TimeSet(chrono_player1);
+
+		if (winner == 2)
+			TimeSet(chrono_player2);
+	}
+
 	
 	/*if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 	{
@@ -172,6 +182,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			if (App->player->reached_CP4 == false)
 			{
 				App->player->actual_checkpoint = CheckPoint::First_CP;
+				
 			}
 			else
 			{
@@ -179,7 +190,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 				{
 					startTimer = false;
 					chrono_player1 = chrono.Read();
-					chrono.Start();
+					
 					App->player->CleanUp();
 					App->player->enabled = false;
 
@@ -204,7 +215,6 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 					chrono_player2 = chrono.Read();
 					chrono.Stop();
 				}
-				
 
 				if (chrono_player1 < chrono_player2)
 				{
@@ -331,10 +341,8 @@ void ModuleSceneIntro::CreateObstacles()
 
 void ModuleSceneIntro::TimeSet(uint timer)
 {
-
 	if (!startTimer)
 		chrono.Start();
-
 
 	char title[80];
 	
@@ -349,32 +357,96 @@ void ModuleSceneIntro::TimeSet(uint timer)
 	if (min > 0)
 		sec_print -= min * 60;
 
-	if (hour >= 10 && min >= 10 && sec_print >= 10) {
-		sprintf_s(title, "%i : %i : %i", hour, min, sec_print);
+	if (!ended)
+	{
+		if (hour >= 10 && min >= 10 && sec_print >= 10) {
+			sprintf_s(title, "%i : %i : %i", hour, min, sec_print);
+		}
+		else if (hour < 10 && min >= 10 && sec_print >= 10) {
+			sprintf_s(title, "0%i : %i : %i", hour, min, sec_print);
+		}
+		else if (hour >= 10 && min < 10 && sec_print >= 10) {
+			sprintf_s(title, "%i : 0%i : %i", hour, min, sec_print);
+		}
+		else if (hour >= 10 && min >= 10 && sec_print < 10) {
+			sprintf_s(title, "%i : %i : 0%i", hour, min, sec_print);
+		}
+		else if (hour >= 10 && min < 10 && sec_print < 10) {
+			sprintf_s(title, "%i : 0%i : 0%i", hour, min, sec_print);
+		}
+		else if (hour < 10 && min >= 10 && sec_print < 10) {
+			sprintf_s(title, "0%i : %i : 0%i", hour, min, sec_print);
+		}
+		else if (hour < 10 && min < 10 && sec_print >= 10) {
+			sprintf_s(title, "0%i : 0%i : %i", hour, min, sec_print);
+		}
+		else {
+			sprintf_s(title, "0%i : 0%i : 0%i", hour, min, sec_print);
+		}
+
+		if (startTimer)
+			App->window->SetTitle(title);
+
 	}
-	else if (hour < 10 && min >= 10 && sec_print >= 10) {
-		sprintf_s(title, "0%i : %i : %i", hour, min, sec_print);
+	else 
+	{
+		if (winner == 2)
+		{
+			if (hour >= 10 && min >= 10 && sec_print >= 10) {
+				sprintf_s(title, "The winner is Player 2 with a time of %i : %i : %i", hour, min, sec_print);
+			}
+			else if (hour < 10 && min >= 10 && sec_print >= 10) {
+				sprintf_s(title, "The winner is Player 2 with a time of 0%i : %i : %i", hour, min, sec_print);
+			}
+			else if (hour >= 10 && min < 10 && sec_print >= 10) {
+				sprintf_s(title, "The winner is Player 2 with a time of %i : 0%i : %i", hour, min, sec_print);
+			}
+			else if (hour >= 10 && min >= 10 && sec_print < 10) {
+				sprintf_s(title, "The winner is Player 2 with a time of %i : %i : 0%i", hour, min, sec_print);
+			}
+			else if (hour >= 10 && min < 10 && sec_print < 10) {
+				sprintf_s(title, "The winner is Player 2 with a time of %i : 0%i : 0%i", hour, min, sec_print);
+			}
+			else if (hour < 10 && min >= 10 && sec_print < 10) {
+				sprintf_s(title, "The winner is Player 2 with a time of 0%i : %i : 0%i", hour, min, sec_print);
+			}
+			else if (hour < 10 && min < 10 && sec_print >= 10) {
+				sprintf_s(title, "The winner is Player 2 with a time of 0%i : 0%i : %i", hour, min, sec_print);
+			}
+			else {
+				sprintf_s(title, "The winner is Player 2 with a time of 0%i : 0%i : 0%i", hour, min, sec_print);
+			}
+			App->window->SetTitle(title);
+		}
+		else if (winner == 1)
+		{
+			if (hour >= 10 && min >= 10 && sec_print >= 10) {
+				sprintf_s(title, "The winner is Player 1 with a time of %i : %i : %i", hour, min, sec_print);
+			}
+			else if (hour < 10 && min >= 10 && sec_print >= 10) {
+				sprintf_s(title, "The winner is Player 1 with a time of 0%i : %i : %i", hour, min, sec_print);
+			}
+			else if (hour >= 10 && min < 10 && sec_print >= 10) {
+				sprintf_s(title, "The winner is Player 1 with a time of %i : 0%i : %i", hour, min, sec_print);
+			}
+			else if (hour >= 10 && min >= 10 && sec_print < 10) {
+				sprintf_s(title, "The winner is Player 1 with a time of %i : %i : 0%i", hour, min, sec_print);
+			}
+			else if (hour >= 10 && min < 10 && sec_print < 10) {
+				sprintf_s(title, "The winner is Player 1 with a time of %i : 0%i : 0%i", hour, min, sec_print);
+			}
+			else if (hour < 10 && min >= 10 && sec_print < 10) {
+				sprintf_s(title, "The winner is Player 1 with a time of 0%i : %i : 0%i", hour, min, sec_print);
+			}
+			else if (hour < 10 && min < 10 && sec_print >= 10) {
+				sprintf_s(title, "The winner is Player 1 with a time of 0%i : 0%i : %i", hour, min, sec_print);
+			}
+			else {
+				sprintf_s(title, "The winner is Player 1 with a time of 0%i : 0%i : 0%i", hour, min, sec_print);
+			}
+			App->window->SetTitle(title);
+		}
 	}
-	else if (hour >= 10 && min < 10 && sec_print >= 10) {
-		sprintf_s(title, "%i : 0%i : %i", hour, min, sec_print);
-	}
-	else if (hour >= 10 && min >= 10 && sec_print < 10) {
-		sprintf_s(title, "%i : %i : 0%i", hour, min, sec_print);
-	}
-	else if (hour >= 10 && min < 10 && sec_print < 10) {
-		sprintf_s(title, "%i : 0%i : 0%i", hour, min, sec_print);
-	}
-	else if (hour < 10 && min >= 10 && sec_print < 10) {
-		sprintf_s(title, "0%i : %i : 0%i", hour, min, sec_print);
-	}
-	else if (hour < 10 && min < 10 && sec_print >= 10) {
-		sprintf_s(title, "0%i : 0%i : %i", hour, min, sec_print);
-	}
-	else {
-		sprintf_s(title, "0%i : 0%i : 0%i", hour, min, sec_print);
-	}
-	if(startTimer)
-	App->window->SetTitle(title);
 }
 
 void ModuleSceneIntro::Render_Circuit()

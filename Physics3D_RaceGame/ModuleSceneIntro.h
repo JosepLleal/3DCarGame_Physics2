@@ -64,6 +64,9 @@ public:
 
 	int winner = 0;
 
+	vec3 storedP1time;
+	vec3 storedP2time;
+
 private:
 
 	// SENSORS -----------------------
