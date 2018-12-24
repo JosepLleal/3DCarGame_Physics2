@@ -64,12 +64,7 @@ public:
 
 	int winner = 0;
 
-	vec3 storedP1time;
-	vec3 storedP2time;
-
-	//sfx and music
-	uint music;
-
+	//sfx
 	uint car_accelerate;
 	uint car_brake;
 	uint car_fall;

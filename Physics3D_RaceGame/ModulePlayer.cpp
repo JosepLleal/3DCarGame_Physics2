@@ -19,11 +19,14 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 
-	char title1[30];
-	sprintf_s(title1, "Press W to start the race");
+	char title1[200];
+	sprintf_s(title1, "Francesco Virgolini Simulator || Press W to start the race");
 	App->window->SetTitle(title1);
 
 	active = true;
+
+	reached_CP4 = false;
+	actual_checkpoint = CheckPoint::First_CP;
 
 	VehicleInfo car;
 
@@ -205,6 +208,10 @@ update_status ModulePlayer::Update(float dt)
 		App->audio->PlayFx(App->scene_intro->car_brake);
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN && App->scene_intro->ended == false)
+	{
+		vehicle->SetTransform(CheckPoint_4_mat.M);
+	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 3.0f) && App->scene_intro->ended == false)
 	{

@@ -22,9 +22,9 @@ bool ModuleSceneIntro::Start()
 	App->audio->SetSfxVolume();
 
 	//FX
-	music = App->audio->PlayMusic("audio/map_music.ogg");
+	App->audio->PlayMusic("audio/map_music.ogg");
 	
-	car_accelerate = App->audio->LoadFx("audio/car_acceleratee.wav");
+	car_accelerate = App->audio->LoadFx("audio/car_accelerate.wav");
 	car_brake = App->audio->LoadFx("audio/car_brakes.wav");
 	car_fall = App->audio->LoadFx("audio/car_fall.wav");
 
@@ -179,12 +179,21 @@ update_status ModuleSceneIntro::Update(float dt)
 		}
 		
 	}
-
 	
-	/*if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && ended)
 	{
-		ended = !ended;
-	}*/
+		App->player->CleanUp();
+		App->player2->CleanUp();
+		App->player2->enabled = false;
+		ended = false;
+		startTimer = false;
+		App->player->Start();
+		App->player->reached_CP4 = false;
+		App->player2->reached_CP4 = false;
+		winner = 0;
+		App->audio->PlayMusic("audio/map_music.ogg");
+	}
 	
 	return UPDATE_CONTINUE;
 }
@@ -361,7 +370,7 @@ void ModuleSceneIntro::TimeSet(uint timer)
 	if (!startTimer)
 		chrono.Start();
 
-	char title[80];
+	char title[200];
 	
 
 	int sec = timer / 1000.0f; //from milisecond to sec
@@ -377,28 +386,28 @@ void ModuleSceneIntro::TimeSet(uint timer)
 	if (!ended)
 	{
 		if (hour >= 10 && min >= 10 && sec_print >= 10) {
-			sprintf_s(title, "%i : %i : %i", hour, min, sec_print);
+			sprintf_s(title, "Francesco Virgolini Simulator || Current time: %i : %i : %i || Press R to respawn in lastest checkpoint", hour, min, sec_print);
 		}
 		else if (hour < 10 && min >= 10 && sec_print >= 10) {
-			sprintf_s(title, "0%i : %i : %i", hour, min, sec_print);
+			sprintf_s(title, "Francesco Virgolini Simulator || Current time: 0%i : %i : %i || Press R to respawn in lastest checkpoint", hour, min, sec_print);
 		}
 		else if (hour >= 10 && min < 10 && sec_print >= 10) {
-			sprintf_s(title, "%i : 0%i : %i", hour, min, sec_print);
+			sprintf_s(title, "Francesco Virgolini Simulator || Current time: %i : 0%i : %i || Press R to respawn in lastest checkpoint", hour, min, sec_print);
 		}
 		else if (hour >= 10 && min >= 10 && sec_print < 10) {
-			sprintf_s(title, "%i : %i : 0%i", hour, min, sec_print);
+			sprintf_s(title, "Francesco Virgolini Simulator || Current time: %i : %i : 0%i || Press R to respawn in lastest checkpoint", hour, min, sec_print);
 		}
 		else if (hour >= 10 && min < 10 && sec_print < 10) {
-			sprintf_s(title, "%i : 0%i : 0%i", hour, min, sec_print);
+			sprintf_s(title, "Francesco Virgolini Simulator || Current time: %i : 0%i : 0%i || Press R to respawn in lastest checkpoint", hour, min, sec_print);
 		}
 		else if (hour < 10 && min >= 10 && sec_print < 10) {
-			sprintf_s(title, "0%i : %i : 0%i", hour, min, sec_print);
+			sprintf_s(title, "Francesco Virgolini Simulator || Current time: 0%i : %i : 0%i || Press R to respawn in lastest checkpoint", hour, min, sec_print);
 		}
 		else if (hour < 10 && min < 10 && sec_print >= 10) {
-			sprintf_s(title, "0%i : 0%i : %i", hour, min, sec_print);
+			sprintf_s(title, "Francesco Virgolini Simulator || Current time: 0%i : 0%i : %i || Press R to respawn in lastest checkpoint", hour, min, sec_print);
 		}
 		else {
-			sprintf_s(title, "0%i : 0%i : 0%i", hour, min, sec_print);
+			sprintf_s(title, "Francesco Virgolini Simulator || Current time: 0%i : 0%i : 0%i || Press R to respawn in lastest checkpoint", hour, min, sec_print);
 		}
 
 		if (startTimer)
@@ -410,56 +419,56 @@ void ModuleSceneIntro::TimeSet(uint timer)
 		if (winner == 2)
 		{
 			if (hour >= 10 && min >= 10 && sec_print >= 10) {
-				sprintf_s(title, "The winner is Player 2 with a time of %i : %i : %i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 2 with a time of %i : %i : %i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour < 10 && min >= 10 && sec_print >= 10) {
-				sprintf_s(title, "The winner is Player 2 with a time of 0%i : %i : %i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 2 with a time of 0%i : %i : %i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour >= 10 && min < 10 && sec_print >= 10) {
-				sprintf_s(title, "The winner is Player 2 with a time of %i : 0%i : %i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 2 with a time of %i : 0%i : %i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour >= 10 && min >= 10 && sec_print < 10) {
-				sprintf_s(title, "The winner is Player 2 with a time of %i : %i : 0%i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 2 with a time of %i : %i : 0%i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour >= 10 && min < 10 && sec_print < 10) {
-				sprintf_s(title, "The winner is Player 2 with a time of %i : 0%i : 0%i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 2 with a time of %i : 0%i : 0%i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour < 10 && min >= 10 && sec_print < 10) {
-				sprintf_s(title, "The winner is Player 2 with a time of 0%i : %i : 0%i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 2 with a time of 0%i : %i : 0%i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour < 10 && min < 10 && sec_print >= 10) {
-				sprintf_s(title, "The winner is Player 2 with a time of 0%i : 0%i : %i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 2 with a time of 0%i : 0%i : %i || Press F to restart game", hour, min, sec_print);
 			}
 			else {
-				sprintf_s(title, "The winner is Player 2 with a time of 0%i : 0%i : 0%i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 2 with a time of 0%i : 0%i : 0%i || Press F to restart game", hour, min, sec_print);
 			}
 			App->window->SetTitle(title);
 		}
 		else if (winner == 1)
 		{
 			if (hour >= 10 && min >= 10 && sec_print >= 10) {
-				sprintf_s(title, "The winner is Player 1 with a time of %i : %i : %i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 1 with a time of %i : %i : %i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour < 10 && min >= 10 && sec_print >= 10) {
-				sprintf_s(title, "The winner is Player 1 with a time of 0%i : %i : %i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 1 with a time of 0%i : %i : %i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour >= 10 && min < 10 && sec_print >= 10) {
-				sprintf_s(title, "The winner is Player 1 with a time of %i : 0%i : %i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 1 with a time of %i : 0%i : %i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour >= 10 && min >= 10 && sec_print < 10) {
-				sprintf_s(title, "The winner is Player 1 with a time of %i : %i : 0%i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 1 with a time of %i : %i : 0%i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour >= 10 && min < 10 && sec_print < 10) {
-				sprintf_s(title, "The winner is Player 1 with a time of %i : 0%i : 0%i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 1 with a time of %i : 0%i : 0%i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour < 10 && min >= 10 && sec_print < 10) {
-				sprintf_s(title, "The winner is Player 1 with a time of 0%i : %i : 0%i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 1 with a time of 0%i : %i : 0%i || Press F to restart game", hour, min, sec_print);
 			}
 			else if (hour < 10 && min < 10 && sec_print >= 10) {
-				sprintf_s(title, "The winner is Player 1 with a time of 0%i : 0%i : %i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 1 with a time of 0%i : 0%i : %i || Press F to restart game", hour, min, sec_print);
 			}
 			else {
-				sprintf_s(title, "The winner is Player 1 with a time of 0%i : 0%i : 0%i", hour, min, sec_print);
+				sprintf_s(title, "Francesco Virgolini Simulator || The winner is Player 1 with a time of 0%i : 0%i : 0%i || Press F to restart game", hour, min, sec_print);
 			}
 			App->window->SetTitle(title);
 		}
