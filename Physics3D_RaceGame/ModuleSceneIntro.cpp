@@ -24,10 +24,9 @@ bool ModuleSceneIntro::Start()
 	//FX
 	music = App->audio->PlayMusic("audio/map_music.ogg");
 	
-	car_accelerate = App->audio->LoadFx("audio/car_accelerate.wav");
+	car_accelerate = App->audio->LoadFx("audio/car_acceleratee.wav");
 	car_brake = App->audio->LoadFx("audio/car_brakes.wav");
 	car_fall = App->audio->LoadFx("audio/car_fall.wav");
-	win = App->audio->LoadFx("audio/win.wav");
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
@@ -230,6 +229,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 				if (ended == false)
 				{
 					chrono_player2 = chrono.Read();
+					App->audio->PlayMusic("audio/smk_victory.ogg");
 					chrono.Stop();
 				}
 

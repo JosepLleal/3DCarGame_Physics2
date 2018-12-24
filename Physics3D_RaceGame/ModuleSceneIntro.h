@@ -73,7 +73,6 @@ public:
 	uint car_accelerate;
 	uint car_brake;
 	uint car_fall;
-	uint win;
 
 private:
 
