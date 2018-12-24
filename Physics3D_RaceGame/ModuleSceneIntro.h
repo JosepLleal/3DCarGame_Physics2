@@ -60,6 +60,7 @@ public:
 	int chrono_player2 = 0;
 
 	bool ended = false;
+	bool startTimer = false;
 
 	int winner = 0;
 

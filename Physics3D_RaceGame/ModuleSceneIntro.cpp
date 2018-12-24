@@ -153,7 +153,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	LOG("Player 1 = %i", chrono_player1);
 	LOG("Player 2 = %i", chrono_player2);
 
-	
 	TimeSet(chrono.Read());
 	
 	/*if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
@@ -178,6 +177,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			{
 				if (ended == false)
 				{
+					startTimer = false;
 					chrono_player1 = chrono.Read();
 					chrono.Start();
 					App->player->CleanUp();
@@ -331,7 +331,13 @@ void ModuleSceneIntro::CreateObstacles()
 
 void ModuleSceneIntro::TimeSet(uint timer)
 {
+
+	if (!startTimer)
+		chrono.Start();
+
+
 	char title[80];
+	
 
 	int sec = timer / 1000.0f; //from milisecond to sec
 	int min = sec / 60.0f; //from seconds to minutes 
@@ -367,7 +373,7 @@ void ModuleSceneIntro::TimeSet(uint timer)
 	else {
 		sprintf_s(title, "0%i : 0%i : 0%i", hour, min, sec_print);
 	}
-
+	if(startTimer)
 	App->window->SetTitle(title);
 }
 

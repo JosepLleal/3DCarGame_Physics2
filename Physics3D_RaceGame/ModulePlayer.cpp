@@ -19,6 +19,10 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 
+	char title1[30];
+	sprintf_s(title1, "Press W to start the race");
+	App->window->SetTitle(title1);
+
 	active = true;
 
 	VehicleInfo car;
@@ -172,6 +176,7 @@ update_status ModulePlayer::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
+		App->scene_intro->startTimer = true;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
