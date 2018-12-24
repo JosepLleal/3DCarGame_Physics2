@@ -198,6 +198,8 @@ update_status ModulePlayer2::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN && App->scene_intro->ended == false)
 	{
+		vehicle->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+		vehicle->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
 		vehicle->SetTransform(App->player->CheckPoint_4_mat.M);
 	}
 
