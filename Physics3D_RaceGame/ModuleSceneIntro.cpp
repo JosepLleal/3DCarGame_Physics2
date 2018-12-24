@@ -58,6 +58,9 @@ bool ModuleSceneIntro::Start()
 	//Last ramp
 	CreateCircuit(13, 3, 35, 0, 13, -30, -5.5, { 1, 0, 0 });
 
+	CreateCircuit(10, 4, 10, -100, 2, -80, 0, { 1, 0, 0 });
+	CreateCircuit(10, 7, 10, -110, 3.5, -80, 0, { 1, 0, 0 });
+
 	CreateObstacles();
 
 	//CHECK POINTS ---------------------------
@@ -153,6 +156,10 @@ update_status ModuleSceneIntro::Update(float dt)
 	
 	TimeSet(chrono.Read());
 	
+	/*if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	{
+		ended = !ended;
+	}*/
 	
 	return UPDATE_CONTINUE;
 }
@@ -169,13 +176,17 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			}
 			else
 			{
-				chrono_player1 = chrono.Read();
-				chrono.Start();
-				App->player->CleanUp();
-				App->player->enabled = false;
+				if (ended == false)
+				{
+					chrono_player1 = chrono.Read();
+					chrono.Start();
+					App->player->CleanUp();
+					App->player->enabled = false;
 
-				App->player2->enabled = true;
-				App->player2->Start();
+					App->player2->enabled = true;
+					App->player2->Start();
+				}
+				
 			}
 			
 			
@@ -188,13 +199,29 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			}
 			else
 			{
-				chrono_player2 = chrono.Read();
-				chrono.Start();
-				App->player2->CleanUp();
-				App->player2->enabled = false;
+				if (ended == false)
+				{
+					chrono_player2 = chrono.Read();
+					chrono.Stop();
+				}
+				
+
+				if (chrono_player1 < chrono_player2)
+				{
+					winner = 1;
+				}
+				else if (chrono_player1 > chrono_player2)
+				{
+					winner = 2;
+				}
+
+				ended = true;
 
 				App->player->enabled = true;
 				App->player->Start();
+				App->player2->Start();
+
+				
 			}
 			
 		}

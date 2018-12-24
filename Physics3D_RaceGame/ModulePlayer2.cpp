@@ -129,8 +129,20 @@ bool ModulePlayer2::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 7, 10);
 
+	if (App->scene_intro->winner == 0)
+	{
+		vehicle->SetPos(0, 7, 10);
+	}
+	else if (App->scene_intro->winner == 1)
+	{
+		vehicle->SetPos(-100, 6, -80);
+	}
+	else if (App->scene_intro->winner == 2)
+	{
+		vehicle->SetPos(-110, 7.5, -80);
+	}
+	
 	return true;
 }
 
@@ -177,7 +189,7 @@ update_status ModulePlayer2::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 3.0f)
+	if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().getY() < 3.0f) && App->scene_intro->ended == false)
 	{
 		vehicle->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
 		vehicle->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));

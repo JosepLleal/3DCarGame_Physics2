@@ -59,6 +59,10 @@ public:
 	int chrono_player1 = 0;
 	int chrono_player2 = 0;
 
+	bool ended = false;
+
+	int winner = 0;
+
 private:
 
 	// SENSORS -----------------------
